@@ -19,13 +19,14 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "clients",
+    "contacts.apps.ContactsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_filters",
 ]
 
 MIDDLEWARE = [
@@ -64,7 +65,7 @@ WSGI_APPLICATION = "system.wsgi.application"
 
 DATABASES = {
     "default": {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "sm-back-end-challenge",
         "USER": "postgres",
         "PASSWORD": "postgres",
