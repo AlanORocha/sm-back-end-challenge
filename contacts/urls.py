@@ -1,18 +1,12 @@
-from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import ContatoViewSetv1, ContatoViewsetv2
+from .views import ContatoViewSet
 
-# Router para a versão 1
+# Cria um router para gerenciar automaticamente as rotas do ViewSet
 router = DefaultRouter()
-router.register(r"contatos", ContatoViewSetv1, basename="contatos-v1")
-
-# Router para a versão 2
-router_v2 = DefaultRouter()
-router_v2.register(r'contatos', ContatoViewsetv2, basename='contatos-v2')
-
+router.register(r"contatos", ContatoViewSet, basename="contato")
 
 urlpatterns = [
-    path("v1/", include(router.urls)),
-    path("v2/", include(router_v2.urls))
-    ]
+    path("v1/", include(router.urls)),  # Rotas para versão 1
+    path("v2/", include(router.urls)),  # Rotas para versão 2
+]

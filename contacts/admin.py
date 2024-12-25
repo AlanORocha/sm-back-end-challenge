@@ -16,7 +16,7 @@ class ContatoAdmin(admin.ModelAdmin):
         "name",
         "cellular",
         "email",
-        "region"
+        "region",
     )
 
     search_fields = ("id", "cellular", "name", "email", "region")

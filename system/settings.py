@@ -15,6 +15,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Configurações do Rest Framework
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 10,  # Número de itens por página
+}
+
 
 # Application definition
 

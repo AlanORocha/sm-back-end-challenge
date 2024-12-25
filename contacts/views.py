@@ -1,19 +1,31 @@
 from rest_framework import viewsets
+from rest_framework.response import Response
 from .models import Contato, ContatoSerializerv1, ContatoSerializerv2
-from django_filters.rest_framework import DjangoFilterBackend
+from tools.check_version import verify_version
 
 
-class ContatoViewSetv1(viewsets.ModelViewSet):
+class ContatoViewSet(viewsets.ModelViewSet):
     queryset = Contato.objects.all()
-    serializer_class = ContatoSerializerv1
-    # Filtros
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name']  
 
+    def get_serializer_class(self):
+        version = verify_version(self.request)
+        if version == "v2":
+            return ContatoSerializerv2
+        return ContatoSerializerv1
 
-class ContatoViewsetv2(viewsets.ModelViewSet):
-    queryset = Contato.objects.all()
-    serializer_class = ContatoSerializerv2
-    # Filtros
-    filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['name']  
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        # Filtro por nome (parâmetro query string)
+        name = request.query_params.get("name")
+        if name:
+            queryset = queryset.filter(name__icontains=name)
+
+        # Cria a paginação
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
