@@ -18,7 +18,7 @@ class Contato(models.Model):
     )
 
     # Email do contato
-    email = models.CharField(
+    email = models.EmailField(
         max_length=255, verbose_name="Email", blank=True, null=True
     )
 
