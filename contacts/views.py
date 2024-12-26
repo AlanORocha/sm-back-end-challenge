@@ -14,9 +14,10 @@ class ContatoViewSet(viewsets.ModelViewSet):
         return ContatoSerializerv1
 
     def list(self, request, *args, **kwargs):
+        # Pega todos os objetos do banco
         queryset = self.filter_queryset(self.get_queryset())
 
-        # Filtro por nome (parâmetro query string)
+        # Filtro por nome
         name = request.query_params.get("name")
         if name:
             queryset = queryset.filter(name__icontains=name)
