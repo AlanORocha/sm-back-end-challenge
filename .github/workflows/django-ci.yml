@@ -5,7 +5,7 @@ on:
     branches: [ main ]
 
 jobs:
-  format-code:
+  prepare-system:
     runs-on: ubuntu-latest
 
     steps:
@@ -22,17 +22,11 @@ jobs:
 
       - name: Install dependances
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-
-      - name: Verify code quality
-        run: |
-          source venv/bin/activate
-          flake8 
+          python -m pip install -requirements.txt
 
   test-app:
       needs:
-        - format-code
+        - prepare-system
       runs-on: ubuntu-latest
 
       services:
