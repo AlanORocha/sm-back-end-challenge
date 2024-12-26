@@ -20,6 +20,9 @@ class ContatoViewSet(viewsets.ModelViewSet):
         # Filtro por nome
         name = request.query_params.get("name")
         if name:
+            queryset = queryset.filter(name=name)
+        if len(queryset) == 0:
+            queryset = self.filter_queryset(self.get_queryset())
             queryset = queryset.filter(name__icontains=name)
 
         # Cria a paginação
