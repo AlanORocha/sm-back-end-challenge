@@ -54,11 +54,11 @@ jobs:
         env:
           PGPASSWORD: postgres
         run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE \"test_db\";"
+          psql -h localhost -U postgres -c "CREATE DATABASE \"sm-back-end-challenge\";"
 
       - name: Run migrations
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/sm-back-end-challenge
         run: |
           source venv/bin/activate
           python manage.py migrate
@@ -66,7 +66,7 @@ jobs:
       - name: Run tests with coverage
         env:
           DJANGO_SETTINGS_MODULE: system.settings
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/sm-back-end-challenge
         run: |
           source venv/bin/activate
           coverage run manage.py test
