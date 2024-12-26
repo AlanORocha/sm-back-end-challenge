@@ -39,14 +39,11 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Criação do banco de dados
-        run: |
-          psql -U postgres -c "CREATE DATABASE sm-back-end-challenge;"
-
       - name: Run migrations
         env:
           DJANGO_SETTINGS_MODULE: system.settings
           RDS_CONFIG: test_db, postgres, postgres, 5432, disable
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: |
           source venv/bin/activate
           python manage.py migrate
