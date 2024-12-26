@@ -12,7 +12,7 @@ SECRET_KEY = "django-insecure-*gqob7n&k#ue&6bo4fzno&=x2gc#i0bpi_rdc1gnd09dm35+wo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 # Configurações do Rest Framework
 REST_FRAMEWORK = {

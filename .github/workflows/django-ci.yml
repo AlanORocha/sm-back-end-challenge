@@ -2,7 +2,8 @@ name: Pipepilen Back Challenge
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - '*'
 
 jobs:
   build:
