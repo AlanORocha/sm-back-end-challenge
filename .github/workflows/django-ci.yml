@@ -1,4 +1,4 @@
-name: Pipepilen Back Challenge
+name: Pipeline Back Challenge
 
 on:
   push:
@@ -15,11 +15,11 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          options: >-
-            --health-cmd pg_isready
-            --health-interval 10s
-            --health-timeout 5s
-            --health-retries 5
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
         ports:
           - 5432:5432
 
@@ -50,24 +50,24 @@ jobs:
             pg_isready -h localhost -p 5432 && break || sleep 5
           done
 
-      - name: Create database
+      - name: Create test database
         env:
           PGPASSWORD: postgres
         run: |
-          psql -h localhost -U postgres -c "CREATE DATABASE \"pipelines_db\";"
+          psql -h localhost -U postgres -c "CREATE DATABASE \"test_db\";"
 
       - name: Run migrations
         env:
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/pipelines_db
-          
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: |
           source venv/bin/activate
           python manage.py migrate
-      
-      - name: Run tests
+
+      - name: Run tests with coverage
         env:
           DJANGO_SETTINGS_MODULE: system.settings
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
         run: |
           source venv/bin/activate
           coverage run manage.py test
+          coverage report
