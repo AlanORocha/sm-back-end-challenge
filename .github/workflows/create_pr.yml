@@ -1,9 +1,0 @@
-name:  merge feature -> main
-
-on:
-  push:
-    branches:
-    - feature/*
-
-jobs:
-  
