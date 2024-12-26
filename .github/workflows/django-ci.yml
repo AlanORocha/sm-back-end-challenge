@@ -39,11 +39,19 @@ jobs:
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Start PostgresSQL
+        uses: postgres@v2
+        with:
+          postgres-version: '13'
+          POSTGRES_DB: pipelines_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+
       - name: Run migrations
         env:
           DJANGO_SETTINGS_MODULE: system.settings
-          RDS_CONFIG: test_db, postgres, postgres, 5432, disable
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_db
+          RDS_CONFIG: pipelines_db, postgres, postgres, 5432
+          
         run: |
           source venv/bin/activate
           python manage.py migrate
