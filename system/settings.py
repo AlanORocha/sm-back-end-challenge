@@ -73,7 +73,7 @@ WSGI_APPLICATION = "system.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        "NAME": "sm-back-end-challenge",
+        "NAME": "teste-db",
         "USER": "postgres",
         "PASSWORD": "postgres",
         "HOST": "localhost",
