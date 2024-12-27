@@ -39,6 +39,17 @@ class TestContatoViewSet(APITestCase):
         # Verifica se o que foi retornado foi o item pesquisado
         self.assertEqual(response.data["results"][0]["name"], "Contato 1")
 
+    # Testa o filtro de nome similar
+    def test_filter_by_similar_name(self):
+        # Obtém o contato especificado
+        response = self.client.get(f"/api/v1/contatos/?name=Contato")
+        # Verifica se foi possível realizar a ação
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        # Verifica se apenas o item especificado foi retornado
+        self.assertEqual(len(response.data["results"]), 2)
+        # Verifica se o que foi retornado foi o item pesquisado
+        self.assertEqual(response.data["results"][0]["name"], "Contato 1")
+
     # Testa criar o contato - V1
     def test_create_contatov1(self):
         # Cria o JSON de contato
