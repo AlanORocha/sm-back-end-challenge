@@ -1,0 +1,6 @@
+[run]
+source = .
+omit = */migrations/*, */settings/*, *__init__*, *manage*, *asgi*, *wsgi*, */system/*
+
+[report]
+show_missing = True
